@@ -211,6 +211,16 @@
                 getSuggestionsBtn.innerHTML = 'Getting Suggestions...'
                 suggestionsOutput.innerHTML = '';
 
+                // Check for API key. This is the most common reason for failure in a live environment.
+                const apiKey = ""; // The canvas environment will automatically provide this.
+                if (apiKey === "") {
+                    suggestionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">An API key is required to use this feature. Please make sure the code is running in a valid environment.</div>';
+                    getSuggestionsBtn.disabled = false;
+                    loadingSpinner.classList.add('hidden');
+                    getSuggestionsBtn.innerHTML = 'Get Career Suggestions ✨';
+                    return;
+                }
+
                 let retryCount = 0;
                 const maxRetries = 3;
                 let success = false;
@@ -223,7 +233,6 @@
 
                         const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
                         const payload = { contents: chatHistory };
-                        const apiKey = "";
                         const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=" + apiKey;
 
                         const response = await fetch(apiUrl, {
@@ -252,7 +261,8 @@
                         if (retryCount < maxRetries) {
                             await new Promise(resolve => setTimeout(resolve, Math.pow(2, retryCount) * 1000)); // Exponential backoff
                         } else {
-                            suggestionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">Sorry, there was an error getting suggestions. Please try again.</div>';
+                            // More descriptive error message for network issues
+                            suggestionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">Sorry, we could not connect to the career advisor. Please check your network connection and try again.</div>';
                         }
                     } finally {
                         if (success || retryCount >= maxRetries) {
