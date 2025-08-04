@@ -83,6 +83,7 @@
             <nav>
                 <ul class="flex space-x-4">
                     <li><a href="#home" class="text-white hover:text-gray-300 font-medium rounded-lg p-2 transition duration-300 ease-in-out">Home</a></li>
+                    <li><a href="#employment-skills" class="text-white hover:text-gray-300 font-medium rounded-lg p-2 transition duration-300 ease-in-out">Employment Skills</a></li>
                     <li><a href="#about" class="text-white hover:text-gray-300 font-medium rounded-lg p-2 transition duration-300 ease-in-out">About</a></li>
                 </ul>
             </nav>
@@ -237,10 +238,13 @@
                 generateQuestionsBtn.innerHTML = 'Generating Questions...'
                 questionsOutput.innerHTML = '';
 
-                // Check for API key.
-                const apiKey = ""; // The canvas environment will automatically provide this.
-                if (apiKey === "") {
-                    questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">An API key is required to use this feature. Please make sure the code is running in a valid environment.</div>';
+                // The API key is automatically provided in the Canvas environment.
+                // If you are running this code outside of Canvas, you will need to
+                // provide your own API key.
+                const apiKey = typeof __api_key !== 'undefined' ? __api_key : '';
+
+                if (apiKey === '') {
+                    questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">An API key is required to use this feature. Please add your key to the code if you are running this outside of the Canvas environment.</div>';
                     generateQuestionsBtn.disabled = false;
                     questionsLoadingSpinner.classList.add('hidden');
                     generateQuestionsBtn.innerHTML = 'Generate Interview Questions ✨';
