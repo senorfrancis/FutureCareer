@@ -232,34 +232,66 @@
                     return;
                 }
 
+                // Check if the page is being run from a local file path
+                if (window.location.protocol === 'file:') {
+                    questionsOutput.innerHTML = `<div class="suggestion-box bg-yellow-100 border-yellow-500 text-yellow-700">
+                        This feature requires a deployed website to work securely. Please try again after you have pushed your changes to GitHub and Netlify has updated your live site.
+                    </div>`;
+                    return;
+                }
+
                 // Show loading state
                 generateQuestionsBtn.disabled = true;
                 questionsLoadingSpinner.classList.remove('hidden');
                 generateQuestionsBtn.innerHTML = 'Generating Questions...'
                 questionsOutput.innerHTML = '';
-
-                // Netlify will automatically inject this variable during the build process
-                // from the environment variables you set in the dashboard.
-                const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-
-                if (!apiKey) {
-                    questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">The API key is not configured. Please add the GEMINI_API_KEY environment variable in your Netlify settings.</div>';
-                    generateQuestionsBtn.disabled = false;
-                    questionsLoadingSpinner.classList.add('hidden');
-                    generateQuestionsBtn.innerHTML = 'Generate Interview Questions ✨';
-                    return;
-                }
-
+                
                 let retryCount = 0;
                 const maxRetries = 3;
                 let success = false;
 
                 while (retryCount < maxRetries && !success) {
                     try {
-                        const prompt = `Act as a friendly and knowledgeable career advisor for a middle school student. The student is interested in the career field of "${careerField}". Provide a list of 5-7 common interview questions for this type of career. Explain why each question is asked in a simple and encouraging way. Use markdown to format the questions as a numbered list with bold headings for each question.`;
+                        const response = await fetch('/.netlify/functions/generate-questions', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ careerField })
+                        });
 
-                        const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-                        const payload = { contents: chatHistory };
-                        const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=" + apiKey;
+                        if (!response.ok) {
+                            throw new Error(`API call failed with status: ${response.status}`);
+                        }
 
-                        const response = await fetch(apiUrl
+                        const result = await response.json();
+                        const text = result.text;
+
+                        if (text) {
+                            questionsOutput.innerHTML = `<div class="suggestion-box bg-blue-100 border-blue-500 text-gray-800 prose max-w-none">${text}</div>`;
+                            success = true;
+                        } else {
+                            throw new Error('No text was returned from the API.');
+                        }
+
+                    } catch (error) {
+                        console.error('Error during API call:', error);
+                        retryCount++;
+                        if (retryCount < maxRetries) {
+                            await new Promise(resolve => setTimeout(resolve, Math.pow(2, retryCount) * 1000)); // Exponential backoff
+                        } else {
+                            // More descriptive error message for network issues
+                            questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">Sorry, we could not connect to the career advisor. Please check your network connection and try again.</div>';
+                        }
+                    } finally {
+                        if (success || retryCount >= maxRetries) {
+                            // Revert button state
+                            generateQuestionsBtn.disabled = false;
+                            questionsLoadingSpinner.classList.add('hidden');
+                            generateQuestionsBtn.innerHTML = 'Generate Interview Questions ✨';
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
