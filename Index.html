@@ -64,6 +64,14 @@
             color: #f6ad55; /* Gold/Yellow on hover */
             text-decoration: underline;
         }
+        .suggestion-box {
+            background-color: #f0f9ff;
+            border-left: 4px solid #3182ce;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+            text-align: left;
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -143,9 +151,52 @@
                     </tbody>
                 </table>
             </div>
+            
         </div>
     </section>
 
+    <!-- New Employment Skills Section -->
+    <section id="employment-skills" class="py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800">Employment Skills to Practice</h2>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
+                Practicing employment skills is key to a successful career. Use the tool below to simulate an interview and hone your skills.
+            </p>
+            
+            <!-- Table for the Interview Question Generator -->
+            <div class="career-table-container flex justify-center">
+                <table class="career-table rounded-lg">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Interview Question Generator ✨</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2" class="career-explorer-cell">
+                                <p class="text-lg text-gray-700 mb-4">
+                                    Prepare for your future interviews! Enter a career field, and our AI will generate common interview questions for you.
+                                </p>
+                                <textarea id="career-field-input" rows="2" class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 transition duration-300" placeholder="e.g., 'Software Engineer' or 'Veterinarian'"></textarea>
+                                <div class="flex justify-center mt-4">
+                                    <button id="generate-questions-btn" class="button-bg text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 ease-in-out flex items-center">
+                                        Generate Interview Questions ✨
+                                        <svg id="questions-loading-spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div id="questions-output" class="mt-8"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </section>
+    
     <!-- About Section -->
     <section id="about" class="py-16 text-center">
         <div class="container mx-auto px-4">
@@ -164,5 +215,90 @@
         </div>
     </footer>
     
+    <!-- JavaScript for Gemini API integration -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const generateQuestionsBtn = document.getElementById('generate-questions-btn');
+            const careerFieldInput = document.getElementById('career-field-input');
+            const questionsOutput = document.getElementById('questions-output');
+            const questionsLoadingSpinner = document.getElementById('questions-loading-spinner');
+
+            generateQuestionsBtn.addEventListener('click', async () => {
+                const careerField = careerFieldInput.value.trim();
+
+                if (careerField === '') {
+                    questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">Please enter a career field to get interview questions.</div>';
+                    return;
+                }
+
+                // Show loading state
+                generateQuestionsBtn.disabled = true;
+                questionsLoadingSpinner.classList.remove('hidden');
+                generateQuestionsBtn.innerHTML = 'Generating Questions...'
+                questionsOutput.innerHTML = '';
+
+                // Check for API key.
+                const apiKey = ""; // The canvas environment will automatically provide this.
+                if (apiKey === "") {
+                    questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">An API key is required to use this feature. Please make sure the code is running in a valid environment.</div>';
+                    generateQuestionsBtn.disabled = false;
+                    questionsLoadingSpinner.classList.add('hidden');
+                    generateQuestionsBtn.innerHTML = 'Generate Interview Questions ✨';
+                    return;
+                }
+
+                let retryCount = 0;
+                const maxRetries = 3;
+                let success = false;
+
+                while (retryCount < maxRetries && !success) {
+                    try {
+                        const prompt = `Act as a friendly and knowledgeable career advisor for a middle school student. The student is interested in the career field of "${careerField}". Provide a list of 5-7 common interview questions for this type of career. Explain why each question is asked in a simple and encouraging way. Use markdown to format the questions as a numbered list with bold headings for each question.`;
+
+                        const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                        const payload = { contents: chatHistory };
+                        const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=" + apiKey;
+
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`API call failed with status: ${response.status}`);
+                        }
+
+                        const result = await response.json();
+                        const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                        if (text) {
+                            questionsOutput.innerHTML = `<div class="suggestion-box bg-blue-100 border-blue-500 text-gray-800 prose max-w-none">${text}</div>`;
+                            success = true;
+                        } else {
+                            throw new Error('No text was returned from the API.');
+                        }
+
+                    } catch (error) {
+                        console.error('Error during API call:', error);
+                        retryCount++;
+                        if (retryCount < maxRetries) {
+                            await new Promise(resolve => setTimeout(resolve, Math.pow(2, retryCount) * 1000)); // Exponential backoff
+                        } else {
+                            // More descriptive error message for network issues
+                            questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">Sorry, we could not connect to the career advisor. Please check your network connection and try again.</div>';
+                        }
+                    } finally {
+                        if (success || retryCount >= maxRetries) {
+                            // Revert button state
+                            generateQuestionsBtn.disabled = false;
+                            questionsLoadingSpinner.classList.add('hidden');
+                            generateQuestionsBtn.innerHTML = 'Generate Interview Questions ✨';
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
