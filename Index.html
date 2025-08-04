@@ -238,11 +238,12 @@
                 generateQuestionsBtn.innerHTML = 'Generating Questions...'
                 questionsOutput.innerHTML = '';
 
-                // Your personal API key. This has been updated for your website.
-                const apiKey = 'AIzaSyD78c_v2fzKxZX3HfAPI_xgtHLthmOTb8o';
+                // Netlify will automatically inject this variable during the build process
+                // from the environment variables you set in the dashboard.
+                const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
-                if (apiKey === '') {
-                    questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">An API key is required to use this feature. Please add your key to the code.</div>';
+                if (!apiKey) {
+                    questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">The API key is not configured. Please add the GEMINI_API_KEY environment variable in your Netlify settings.</div>';
                     generateQuestionsBtn.disabled = false;
                     questionsLoadingSpinner.classList.add('hidden');
                     generateQuestionsBtn.innerHTML = 'Generate Interview Questions ✨';
@@ -261,46 +262,4 @@
                         const payload = { contents: chatHistory };
                         const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=" + apiKey;
 
-                        const response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-
-                        if (!response.ok) {
-                            throw new Error(`API call failed with status: ${response.status}`);
-                        }
-
-                        const result = await response.json();
-                        const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                        if (text) {
-                            questionsOutput.innerHTML = `<div class="suggestion-box bg-blue-100 border-blue-500 text-gray-800 prose max-w-none">${text}</div>`;
-                            success = true;
-                        } else {
-                            throw new Error('No text was returned from the API.');
-                        }
-
-                    } catch (error) {
-                        console.error('Error during API call:', error);
-                        retryCount++;
-                        if (retryCount < maxRetries) {
-                            await new Promise(resolve => setTimeout(resolve, Math.pow(2, retryCount) * 1000)); // Exponential backoff
-                        } else {
-                            // More descriptive error message for network issues
-                            questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">Sorry, we could not connect to the career advisor. Please check your network connection and try again.</div>';
-                        }
-                    } finally {
-                        if (success || retryCount >= maxRetries) {
-                            // Revert button state
-                            generateQuestionsBtn.disabled = false;
-                            questionsLoadingSpinner.classList.add('hidden');
-                            generateQuestionsBtn.innerHTML = 'Generate Interview Questions ✨';
-                        }
-                    }
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                        const response = await fetch(apiUrl
