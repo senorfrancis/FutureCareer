@@ -238,13 +238,11 @@
                 generateQuestionsBtn.innerHTML = 'Generating Questions...'
                 questionsOutput.innerHTML = '';
 
-                // The API key is automatically provided in the Canvas environment.
-                // If you are running this code outside of Canvas, you will need to
-                // provide your own API key.
-                const apiKey = typeof __api_key !== 'undefined' ? __api_key : '';
+                // Your personal API key. This has been updated for your website.
+                const apiKey = 'AIzaSyD78c_v2fzKxZX3HfAPI_xgtHLthmOTb8o';
 
                 if (apiKey === '') {
-                    questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">An API key is required to use this feature. Please add your key to the code if you are running this outside of the Canvas environment.</div>';
+                    questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">An API key is required to use this feature. Please add your key to the code.</div>';
                     generateQuestionsBtn.disabled = false;
                     questionsLoadingSpinner.classList.add('hidden');
                     generateQuestionsBtn.innerHTML = 'Generate Interview Questions ✨';
