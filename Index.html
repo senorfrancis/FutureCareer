@@ -17,7 +17,7 @@ background-color: #f0f4f8;
 .button-bg { background-color: #3182ce; }
 .button-bg:hover { background-color: #2c5282; }
 .footer-bg { background-color: #1a365d; }
-    .career-table {
+   .career-table {
         width: 100%;
         max-width: 600px;
         margin: 2rem auto;
@@ -66,13 +66,12 @@ background-color: #f0f4f8;
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         position: relative;
     }
-    iframe {
+    #game-frame {
         width: 100%;
         height: 100%;
         border: none;
     }
 </style>
-
 
 </head>
 <body class="text-gray-800">
@@ -94,9 +93,7 @@ background-color: #f0f4f8;
 <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
 Welcome to Mr. Francis's Career Exploration Class! Here, students embark on an exciting journey to discover their passions and build essential skills.
 </p>
-    <!-- Links Tables -->
-    <div class="career-table-container flex flex-col items-center">
-        <!-- Personality Table -->
+   <div class="career-table-container flex flex-col items-center">
         <table class="career-table">
             <thead><tr><th colspan="2">Discover your personality traits:</th></tr></thead>
             <tbody>
@@ -107,7 +104,6 @@ Welcome to Mr. Francis's Career Exploration Class! Here, students embark on an e
             </tbody>
         </table>
 
-        <!-- AI Chat Table -->
         <table class="career-table">
             <thead><tr><th colspan="2">Chat with AI to plan your future:</th></tr></thead>
             <tbody>
@@ -120,21 +116,17 @@ Welcome to Mr. Francis's Career Exploration Class! Here, students embark on an e
     </div>
 </div>
 
-
 </section>
 <section id="employment-skills" class="py-16 text-center bg-white">
 <div class="container mx-auto px-4">
 <h2 class="text-3xl font-bold mb-4">Employment Skills</h2>
-    <!-- Job App Table -->
-    <table class="career-table">
-        <thead><tr><th>Practice Job Application</th></tr></thead>
-        <tbody>
-            <tr><td><a href="https://www.careeronestop.org/Toolkit/Jobs/practice-job-application-form.aspx" target="_blank">Career One Stop Practice Application</a></td></tr>
-        </tbody>
-    </table>
-
-    <!-- Interview Generator -->
-    <div class="career-table-container flex justify-center mt-8">
+<table class="career-table">
+<thead><tr><th>Practice Job Application</th></tr></thead>
+<tbody>
+<tr><td><a href="https://www.careeronestop.org/Toolkit/Jobs/practice-job-application-form.aspx" target="_blank">Career One Stop Practice Application</a></td></tr>
+</tbody>
+</table>
+   <div class="career-table-container flex justify-center mt-8">
         <div class="career-table max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow">
             <h3 class="text-xl font-bold mb-4">Interview Question Generator ✨</h3>
             <textarea id="career-field-input" rows="2" class="w-full p-4 border rounded-lg mb-4" placeholder="e.g., 'Software Engineer'"></textarea>
@@ -146,36 +138,43 @@ Welcome to Mr. Francis's Career Exploration Class! Here, students embark on an e
     </div>
 </div>
 
-
+</section>
+<section id="about" class="py-16 text-center">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl font-bold mb-4">About Our Class</h2>
+<p class="text-lg text-gray-700 max-w-3xl mx-auto">
+Mr. Francis's Career Exploration Class provides middle school students with a foundational understanding of various career fields. Lessons are tailored to student interests while adhering to Arizona Career Literacy Standards.
+</p>
+</div>
 </section>
 <!-- RESUME RUNNER GAME SECTION -->
 <section class="py-16 bg-gray-100 text-center">
 <div class="container mx-auto px-4">
 <h2 class="text-3xl font-bold mb-6 text-gray-800">Resume Runner Ninja</h2>
 <div class="game-container">
-<!-- We will inject the game here via script to ensure it never 404s -->
 <iframe id="game-frame" title="Resume Runner Game"></iframe>
 </div>
 <p class="mt-4 text-sm text-gray-600 italic">Dodge the managers and collect the resumes!</p>
 </div>
 </section>
 <footer class="footer-bg text-white py-8 text-center">
-<p>© 2025 Mr. Francis's Career Exploration Class.</p>
+<p>&copy; 2025 Mr. Francis's Career Exploration Class.</p>
 </footer>
 <script>
-// Logic for Resume Runner Embed
-const gameCode = `
+// 1. GAME CODE INJECTION
+// This is a condensed version of the Resume Runner Ninja code provided in your PDF.
+const gameSource = `
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-body { margin: 0; overflow: hidden; background: #1a202c; font-family: sans-serif; touch-action: none; }
+body { margin: 0; overflow: hidden; background: #1a202c; font-family: sans-serif; touch-action: none; user-select: none; }
 canvas { display: block; width: 100vw; height: 100vh; background: #2d3748; }
 #ui { position: absolute; top: 10px; left: 10px; color: white; pointer-events: none; font-weight: bold; }
-.modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #2d3748; padding: 20px; border-radius: 10px; border: 3px solid #4a5568; color: white; text-align: center; }
-button { background: #4299e1; padding: 10px 20px; border-radius: 5px; color: white; border: none; cursor: pointer; margin-top: 10px; }
+.modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #2d3748; padding: 20px; border-radius: 10px; border: 3px solid #4a5568; color: white; text-align: center; width: 80%; }
+button { background: #4299e1; padding: 10px 20px; border-radius: 5px; color: white; border: none; cursor: pointer; margin-top: 10px; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -183,64 +182,79 @@ button { background: #4299e1; padding: 10px 20px; border-radius: 5px; color: whi
     <canvas id="gameCanvas"></canvas>
     <div id="startModal" class="modal">
         <h1 class="text-xl font-bold">RESUME RUNNER</h1>
-        <p>Collect Resumes, Avoid Managers!</p>
+        <p class="text-sm my-2">Collect Resumes, Avoid Managers!</p>
         <button onclick="startGame()">START GAME</button>
     </div>
-
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-        let score = 0;
-        let day = 1;
-        let gameRunning = false;
+        let score = 0; let day = 1; let gameRunning = false;
+        const player = { x: 240, y: 200, size: 25, color: '#63b3ed' };
+        const managers = []; const resumes = [];
+        
+        canvas.width = 485; canvas.height = 402;
 
-        // Simple Game Logic (Abridged version of your PDF logic for stability)
-        const player = { x: 50, y: 50, size: 20 };
-        const managers = [];
-        const resumes = [];
+        function spawnItem(arr, color) {
+            arr.push({ x: Math.random()*(canvas.width-20), y: Math.random()*(canvas.height-20), size: 15, color });
+        }
 
         function startGame() {
             document.getElementById('startModal').style.display = 'none';
             gameRunning = true;
-            requestAnimationFrame(gameLoop);
+            for(let i=0; i<3; i++) spawnItem(resumes, '#48bb78');
+            for(let i=0; i<2; i++) spawnItem(managers, '#f56565');
+            animate();
         }
 
-        // Standardize canvas size
-        canvas.width = 485;
-        canvas.height = 402;
+        canvas.addEventListener('mousemove', (e) => {
+            const r = canvas.getBoundingClientRect();
+            player.x = e.clientX - r.left - player.size/2;
+            player.y = e.clientY - r.top - player.size/2;
+        });
 
-        function gameLoop() {
+        function animate() {
             if(!gameRunning) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#2d3748'; ctx.fillRect(0,0,canvas.width,canvas.height);
             
             // Draw Player
-            ctx.fillStyle = '#63b3ed';
-            ctx.fillRect(player.x, player.y, player.size, player.size);
+            ctx.fillStyle = player.color; ctx.fillRect(player.x, player.y, player.size, player.size);
             
-            requestAnimationFrame(gameLoop);
-        }
+            // Resumes
+            resumes.forEach((res, i) => {
+                ctx.fillStyle = res.color; ctx.fillRect(res.x, res.y, res.size, res.size);
+                if(player.x < res.x + res.size && player.x + player.size > res.x && player.y < res.y + res.size && player.y + player.size > res.y) {
+                    resumes.splice(i, 1); score += 10; document.getElementById('score').innerText = score;
+                    spawnItem(resumes, '#48bb78');
+                }
+            });
 
-        // Listen for mouse/touch
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            player.x = e.clientX - rect.left - player.size/2;
-            player.y = e.clientY - rect.top - player.size/2;
-        });
+            // Managers
+            managers.forEach(man => {
+                ctx.fillStyle = man.color; ctx.fillRect(man.x, man.y, man.size, man.size);
+                man.x += (player.x - man.x) * 0.01; man.y += (player.y - man.y) * 0.01;
+                if(player.x < man.x + man.size && player.x + player.size > man.x && player.y < man.y + man.size && player.y + player.size > man.y) {
+                    gameRunning = false;
+                    alert('Caught by a Manager! Final Score: ' + score);
+                    location.reload();
+                }
+            });
+            requestAnimationFrame(animate);
+        }
     <\/script>
 </body>
 </html>
 `;
 
-const iframe = document.getElementById('game-frame');
-iframe.srcdoc = gameCode;
+// Inject game into the iframe
+document.getElementById('game-frame').srcdoc = gameSource;
 
-// Interview Generator Logic
+// 2. INTERVIEW GENERATOR LOGIC
 document.getElementById('generate-questions-btn').addEventListener('click', async () => {
     const careerField = document.getElementById('career-field-input').value.trim();
     const output = document.getElementById('questions-output');
     
     if (!careerField) return;
-    output.innerHTML = "Generating...";
+    output.innerHTML = "<div class='suggestion-box'>Generating questions...</div>";
 
     try {
         const response = await fetch('/.netlify/functions/generate-questions', {
@@ -251,11 +265,11 @@ document.getElementById('generate-questions-btn').addEventListener('click', asyn
         const result = await response.json();
         output.innerHTML = `<div class="suggestion-box">${result.text}</div>`;
     } catch (error) {
-        output.innerHTML = "Error connecting to career advisor.";
+        output.innerHTML = "<div class='suggestion-box bg-red-100 text-red-700'>Error connecting to career advisor. Ensure you are running this on your deployed Netlify site.</div>";
     }
 });
-
 
 </script>
 </body>
 </html>
+
