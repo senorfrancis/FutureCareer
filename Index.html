@@ -1,275 +1,318 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mr. Francis's Career Exploration Class</title>
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DInter:wght%40300%3B400%3B600%3B700%26display%3Dswap" rel="stylesheet">
-<style>
-body {
-font-family: 'Inter', sans-serif;
-background-color: #f0f4f8;
-}
-.header-bg { background-color: #1a365d; }
-.accent-color { color: #f6ad55; }
-.button-bg { background-color: #3182ce; }
-.button-bg:hover { background-color: #2c5282; }
-.footer-bg { background-color: #1a365d; }
-   .career-table {
-        width: 100%;
-        max-width: 600px;
-        margin: 2rem auto;
-        border-collapse: collapse;
-        box-shadow: 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 0.5rem;
-        overflow: hidden;
-    }
-    .career-table th, .career-table td {
-        padding: 1rem;
-        text-align: center;
-        border: 1px solid #e2e8f0;
-    }
-    .career-table th {
-        background-color: #3182ce;
-        color: white;
-        font-weight: 600;
-    }
-    .career-table td { background-color: #ffffff; }
-    .career-table a {
-        color: #1a365d;
-        text-decoration: none;
-        font-weight: 500;
-        transition: color 0.3s ease;
-    }
-    .career-table a:hover {
-        color: #f6ad55;
-        text-decoration: underline;
-    }
-    .suggestion-box {
-        background-color: #f0f9ff;
-        border-left: 4px solid #3182ce;
-        padding: 1rem;
-        margin-top: 1rem;
-        border-radius: 0.25rem;
-        text-align: left;
-    }
-    /* Game Container Styling */
-    .game-container {
-        width: 485px;
-        height: 402px;
-        margin: 0 auto;
-        background: #000;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        position: relative;
-    }
-    #game-frame {
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr. Francis's Career Exploration Class</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Using Crane Middle School inspired colors: a deep blue, a lighter blue, and an accent yellow/gold */
+            background-color: #f0f4f8; /* Light gray-blue background */
+        }
+        .header-bg {
+            background-color: #1a365d; /* Darker blue, similar to school colors */
+        }
+        .accent-color {
+            color: #f6ad55; /* Gold/Yellow accent */
+        }
+        .button-bg {
+            background-color: #3182ce; /* Medium blue */
+        }
+        .button-bg:hover {
+            background-color: #2c5282; /* Darker hover state */
+        }
+        .card-bg {
+            background-color: #ffffff; /* White card background */
+        }
+        .footer-bg {
+            background-color: #1a365d; /* Darker blue for footer */
+        }
+        /* Custom styles for the new table */
+        .career-table {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            border-collapse: collapse;
+            box-shadow: 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden; /* Ensures rounded corners apply to content */
+        }
+        .career-table th, .career-table td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid #e2e8f0; /* Light gray border */
+        }
+        .career-table th {
+            background-color: #3182ce; /* Medium blue for header */
+            color: white;
+            font-weight: 600;
+        }
+        .career-table td {
+            background-color: #ffffff; /* White for cells */
+        }
+        .career-table a {
+            color: #1a365d; /* Dark blue for links */
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .career-table a:hover {
+            color: #f6ad55; /* Gold/Yellow on hover */
+            text-decoration: underline;
+        }
+        .suggestion-box {
+            background-color: #f0f9ff;
+            border-left: 4px solid #3182ce;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+            text-align: left;
+        }
+    </style>
 </head>
 <body class="text-gray-800">
-<header class="header-bg shadow-lg py-4">
-<div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-<h1 class="text-3xl font-bold text-white mb-2 md:mb-0">Mr. Francis's Career Exploration Class</h1>
-<nav>
-<ul class="flex space-x-4">
-<li><a href="#home" class="text-white hover:text-gray-300 font-medium p-2">Home</a></li>
-<li><a href="#employment-skills" class="text-white hover:text-gray-300 font-medium p-2">Employment Skills</a></li>
-<li><a href="#about" class="text-white hover:text-gray-300 font-medium p-2">About</a></li>
-</ul>
-</nav>
-</div>
-</header>
-<section id="home" class="py-16 text-center">
-<div class="container mx-auto px-4">
-<h2 class="text-4xl font-extrabold mb-4 accent-color">Discover Your Future!</h2>
-<p class="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
-Welcome to Mr. Francis's Career Exploration Class! Here, students embark on an exciting journey to discover their passions and build essential skills.
-</p>
-   <div class="career-table-container flex flex-col items-center">
-        <table class="career-table">
-            <thead><tr><th colspan="2">Discover your personality traits:</th></tr></thead>
-            <tbody>
-                <tr>
-                    <td><a href="https://www.16personalities.com/" target="_blank">16Personalities Test</a></td>
-                    <td><a href="https://bigfive-test.com/" target="_blank">Big Five Test</a></td>
-                </tr>
-            </tbody>
-        </table>
 
-        <table class="career-table">
-            <thead><tr><th colspan="2">Chat with AI to plan your future:</th></tr></thead>
-            <tbody>
-                <tr>
-                    <td><a href="https://student.schoolai.com/student-space?code=CMVP" target="_blank">AI Career Compass</a></td>
-                    <td><a href="https://student.schoolai.com/dot/spaces/join?code=9NJZ-6B59" target="_blank">Future Finder</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-</section>
-<section id="employment-skills" class="py-16 text-center bg-white">
-<div class="container mx-auto px-4">
-<h2 class="text-3xl font-bold mb-4">Employment Skills</h2>
-<table class="career-table">
-<thead><tr><th>Practice Job Application</th></tr></thead>
-<tbody>
-<tr><td><a href="https://www.careeronestop.org/Toolkit/Jobs/practice-job-application-form.aspx" target="_blank">Career One Stop Practice Application</a></td></tr>
-</tbody>
-</table>
-   <div class="career-table-container flex justify-center mt-8">
-        <div class="career-table max-w-xl p-6 bg-white border border-gray-200 rounded-lg shadow">
-            <h3 class="text-xl font-bold mb-4">Interview Question Generator ✨</h3>
-            <textarea id="career-field-input" rows="2" class="w-full p-4 border rounded-lg mb-4" placeholder="e.g., 'Software Engineer'"></textarea>
-            <button id="generate-questions-btn" class="button-bg text-white font-bold py-3 px-8 rounded-full">
-                Generate Interview Questions
-            </button>
-            <div id="questions-output" class="mt-4"></div>
+    <!-- Header Section -->
+    <header class="header-bg shadow-lg py-4">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-3xl font-bold text-white mb-2 md:mb-0">Mr. Francis's Career Exploration Class</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="#home" class="text-white hover:text-gray-300 font-medium rounded-lg p-2 transition duration-300 ease-in-out">Home</a></li>
+                    <li><a href="#employment-skills" class="text-white hover:text-gray-300 font-medium rounded-lg p-2 transition duration-300 ease-in-out">Employment Skills</a></li>
+                    <li><a href="#about" class="text-white hover:text-gray-300 font-medium rounded-lg p-2 transition duration-300 ease-in-out">About</a></li>
+                </ul>
+            </nav>
         </div>
-    </div>
-</div>
+    </header>
 
-</section>
-<section id="about" class="py-16 text-center">
-<div class="container mx-auto px-4">
-<h2 class="text-3xl font-bold mb-4">About Our Class</h2>
-<p class="text-lg text-gray-700 max-w-3xl mx-auto">
-Mr. Francis's Career Exploration Class provides middle school students with a foundational understanding of various career fields. Lessons are tailored to student interests while adhering to Arizona Career Literacy Standards.
-</p>
-</div>
-</section>
-<!-- RESUME RUNNER GAME SECTION -->
-<section class="py-16 bg-gray-100 text-center">
-<div class="container mx-auto px-4">
-<h2 class="text-3xl font-bold mb-6 text-gray-800">Resume Runner Ninja</h2>
-<div class="game-container">
-<iframe id="game-frame" title="Resume Runner Game"></iframe>
-</div>
-<p class="mt-4 text-sm text-gray-600 italic">Dodge the managers and collect the resumes!</p>
-</div>
-</section>
-<footer class="footer-bg text-white py-8 text-center">
-<p>&copy; 2025 Mr. Francis's Career Exploration Class.</p>
-</footer>
-<script>
-// 1. GAME CODE INJECTION
-// This is a condensed version of the Resume Runner Ninja code provided in your PDF.
-const gameSource = `
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-body { margin: 0; overflow: hidden; background: #1a202c; font-family: sans-serif; touch-action: none; user-select: none; }
-canvas { display: block; width: 100vw; height: 100vh; background: #2d3748; }
-#ui { position: absolute; top: 10px; left: 10px; color: white; pointer-events: none; font-weight: bold; }
-.modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #2d3748; padding: 20px; border-radius: 10px; border: 3px solid #4a5568; color: white; text-align: center; width: 80%; }
-button { background: #4299e1; padding: 10px 20px; border-radius: 5px; color: white; border: none; cursor: pointer; margin-top: 10px; font-weight: bold; }
-</style>
-</head>
-<body>
-    <div id="ui">Score: <span id="score">0</span> | Day: <span id="day">1</span></div>
-    <canvas id="gameCanvas"></canvas>
-    <div id="startModal" class="modal">
-        <h1 class="text-xl font-bold">RESUME RUNNER</h1>
-        <p class="text-sm my-2">Collect Resumes, Avoid Managers!</p>
-        <button onclick="startGame()">START GAME</button>
-    </div>
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        let score = 0; let day = 1; let gameRunning = false;
-        const player = { x: 240, y: 200, size: 25, color: '#63b3ed' };
-        const managers = []; const resumes = [];
-        
-        canvas.width = 485; canvas.height = 402;
+    <!-- Hero Section -->
+    <section id="home" class="py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-extrabold mb-4 accent-color">Discover Your Future!</h2>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
+                Welcome to Mr. Francis's Career Exploration Class! Here, students embark on an exciting journey to discover their passions, explore diverse career paths, and build essential skills for their future. Through hands-on activities, guest speakers, and engaging projects, we're preparing the next generation of innovators and leaders.
+            </p>
+            <!-- Personality Assessment Table -->
+            <div class="career-table-container flex justify-center">
+                <table class="career-table rounded-lg">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Discover your personality traits and characteristics:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://www.16personalities.com/" target="_blank" rel="noopener noreferrer">16Personalities Test</a></td>
+                            <td><a href="https://bigfive-test.com/" target="_blank" rel="noopener noreferrer">Big Five Test</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        function spawnItem(arr, color) {
-            arr.push({ x: Math.random()*(canvas.width-20), y: Math.random()*(canvas.height-20), size: 15, color });
-        }
+            <!-- AI Career Chat Table -->
+            <div class="career-table-container flex justify-center">
+                <table class="career-table rounded-lg">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Chat with AI to help plan out your future:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://student.schoolai.com/student-space?code=CMVP" target="_blank" rel="noopener noreferrer">AI Career Compass</a></td>
+                            <td><a href="https://student.schoolai.com/dot/spaces/join?code=9NJZ-6B59" target="_blank" rel="noopener noreferrer">Future Finder Career Coach</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <a href="https://gemini.google.com/gem/career-guide" target="_blank" rel="noopener noreferrer">Gemini Career Guide</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        function startGame() {
-            document.getElementById('startModal').style.display = 'none';
-            gameRunning = true;
-            for(let i=0; i<3; i++) spawnItem(resumes, '#48bb78');
-            for(let i=0; i<2; i++) spawnItem(managers, '#f56565');
-            animate();
-        }
-
-        canvas.addEventListener('mousemove', (e) => {
-            const r = canvas.getBoundingClientRect();
-            player.x = e.clientX - r.left - player.size/2;
-            player.y = e.clientY - r.top - player.size/2;
-        });
-
-        function animate() {
-            if(!gameRunning) return;
-            ctx.fillStyle = '#2d3748'; ctx.fillRect(0,0,canvas.width,canvas.height);
+            <!-- Chat with a professional table -->
+            <div class="career-table-container flex justify-center">
+                <table class="career-table rounded-lg">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Chat with a professional in your career field of interest and ask questions:</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="https://www.careervillage.org/" target="_blank" rel="noopener noreferrer">Career Village</a></td>
+                            <td><a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             
-            // Draw Player
-            ctx.fillStyle = player.color; ctx.fillRect(player.x, player.y, player.size, player.size);
+        </div>
+    </section>
+
+    <!-- New Employment Skills Section -->
+    <section id="employment-skills" class="py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800">Employment Skills to Practice</h2>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
+                Practicing employment skills is key to a successful career. Use the tool below to simulate an interview and hone your skills.
+            </p>
             
-            // Resumes
-            resumes.forEach((res, i) => {
-                ctx.fillStyle = res.color; ctx.fillRect(res.x, res.y, res.size, res.size);
-                if(player.x < res.x + res.size && player.x + player.size > res.x && player.y < res.y + res.size && player.y + player.size > res.y) {
-                    resumes.splice(i, 1); score += 10; document.getElementById('score').innerText = score;
-                    spawnItem(resumes, '#48bb78');
-                }
-            });
+            <!-- Table for Practice Job Application -->
+            <div class="career-table-container flex justify-center">
+                <table class="career-table rounded-lg">
+                    <thead>
+                        <tr>
+                            <th>Practice Job Application</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="https://www.careeronestop.org/Toolkit/Jobs/practice-job-application-form.aspx?practice-job-application-form.aspx=" target="_blank" rel="noopener noreferrer">Career One Stop Practice Application</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-            // Managers
-            managers.forEach(man => {
-                ctx.fillStyle = man.color; ctx.fillRect(man.x, man.y, man.size, man.size);
-                man.x += (player.x - man.x) * 0.01; man.y += (player.y - man.y) * 0.01;
-                if(player.x < man.x + man.size && player.x + player.size > man.x && player.y < man.y + man.size && player.y + player.size > man.y) {
-                    gameRunning = false;
-                    alert('Caught by a Manager! Final Score: ' + score);
-                    location.reload();
-                }
-            });
-            requestAnimationFrame(animate);
-        }
-    <\/script>
-</body>
-</html>
-`;
-
-// Inject game into the iframe
-document.getElementById('game-frame').srcdoc = gameSource;
-
-// 2. INTERVIEW GENERATOR LOGIC
-document.getElementById('generate-questions-btn').addEventListener('click', async () => {
-    const careerField = document.getElementById('career-field-input').value.trim();
-    const output = document.getElementById('questions-output');
+            <!-- Table for the Interview Question Generator -->
+            <div class="career-table-container flex justify-center">
+                <table class="career-table rounded-lg">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Interview Question Generator ✨</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="2" class="career-explorer-cell">
+                                <p class="text-lg text-gray-700 mb-4">
+                                    Prepare for your future interviews! Enter a career field, and our AI will generate common interview questions for you.
+                                </p>
+                                <textarea id="career-field-input" rows="2" class="w-full p-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 transition duration-300" placeholder="e.g., 'Software Engineer' or 'Veterinarian'"></textarea>
+                                <div class="flex justify-center mt-4">
+                                    <button id="generate-questions-btn" class="button-bg text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 ease-in-out flex items-center">
+                                        Generate Interview Questions ✨
+                                        <svg id="questions-loading-spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div id="questions-output" class="mt-8"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </section>
     
-    if (!careerField) return;
-    output.innerHTML = "<div class='suggestion-box'>Generating questions...</div>";
+    <!-- About Section -->
+    <section id="about" class="py-16 text-center">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-4 text-gray-800">About Our Class</h2>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                Mr. Francis's Career Exploration Class is dedicated to providing middle school students with a foundational understanding of various career fields. Our goal is to inspire curiosity, foster critical thinking, and help students envision their potential contributions to the world. We believe that early exposure to different professions can ignite lifelong passions and guide informed academic and career choices. In this career exploration class, students have voice and choice, allowing them to select career fields or individual subjects that they are interested in, and lessons are tailored to student interests to increase relevance and buy-in for each group of students while still adhering to the Arizona Career Literacy Standards for grades 6-8.
+            </p>
+            <div class="mt-8 flex justify-center">
+                <iframe src="https://scratch.mit.edu/projects/1206113439/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen class="rounded-lg shadow-lg"></iframe>
+            </div>
+        </div>
+    </section>
 
-    try {
-        const response = await fetch('/.netlify/functions/generate-questions', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ careerField })
+    <!-- Footer Section -->
+    <footer class="footer-bg text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 Mr. Francis's Career Exploration Class. All rights reserved.</p>
+            <p class="text-sm mt-2">Designed with passion for the future leaders of Yuma, Arizona.</p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript for Gemini API integration -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const generateQuestionsBtn = document.getElementById('generate-questions-btn');
+            const careerFieldInput = document.getElementById('career-field-input');
+            const questionsOutput = document.getElementById('questions-output');
+            const questionsLoadingSpinner = document.getElementById('questions-loading-spinner');
+
+            generateQuestionsBtn.addEventListener('click', async () => {
+                const careerField = careerFieldInput.value.trim();
+
+                if (careerField === '') {
+                    questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">Please enter a career field to get interview questions.</div>';
+                    return;
+                }
+
+                // Check if the page is being run from a local file path
+                if (window.location.protocol === 'file:') {
+                    questionsOutput.innerHTML = `<div class="suggestion-box bg-yellow-100 border-yellow-500 text-yellow-700">
+                        This feature requires a deployed website to work securely. Please try again after you have pushed your changes to GitHub and Netlify has updated your live site.
+                    </div>`;
+                    return;
+                }
+
+                // Show loading state
+                generateQuestionsBtn.disabled = true;
+                questionsLoadingSpinner.classList.remove('hidden');
+                generateQuestionsBtn.innerHTML = 'Generating Questions...'
+                questionsOutput.innerHTML = '';
+                
+                let retryCount = 0;
+                const maxRetries = 3;
+                let success = false;
+
+                while (retryCount < maxRetries && !success) {
+                    try {
+                        const response = await fetch('/.netlify/functions/generate-questions', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ careerField })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`API call failed with status: ${response.status}`);
+                        }
+
+                        const result = await response.json();
+                        const text = result.text;
+
+                        if (text) {
+                            questionsOutput.innerHTML = `<div class="suggestion-box bg-blue-100 border-blue-500 text-gray-800 prose max-w-none">${text}</div>`;
+                            success = true;
+                        } else {
+                            throw new Error('No text was returned from the API.');
+                        }
+
+                    } catch (error) {
+                        console.error('Error during API call:', error);
+                        retryCount++;
+                        if (retryCount < maxRetries) {
+                            await new Promise(resolve => setTimeout(resolve, Math.pow(2, retryCount) * 1000)); // Exponential backoff
+                        } else {
+                            // More descriptive error message for network issues
+                            questionsOutput.innerHTML = '<div class="suggestion-box bg-red-100 border-red-500 text-red-700">Sorry, we could not connect to the career advisor. Please check your network connection and try again.</div>';
+                        }
+                    } finally {
+                        if (success || retryCount >= maxRetries) {
+                            // Revert button state
+                            generateQuestionsBtn.disabled = false;
+                            questionsLoadingSpinner.classList.add('hidden');
+                            generateQuestionsBtn.innerHTML = 'Generate Interview Questions ✨';
+                        }
+                    }
+                }
+            });
         });
-        const result = await response.json();
-        output.innerHTML = `<div class="suggestion-box">${result.text}</div>`;
-    } catch (error) {
-        output.innerHTML = "<div class='suggestion-box bg-red-100 text-red-700'>Error connecting to career advisor. Ensure you are running this on your deployed Netlify site.</div>";
-    }
-});
-
-</script>
+    </script>
 </body>
 </html>
-
